@@ -1,0 +1,6 @@
+{
+  "name": "Kausar.Build WordPress Theme",
+  "description": "Portfolio and design engineering studio for Kausar.Build with editable CPTs, theme customizer options, consultation bookings, and 1-click ZIP export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

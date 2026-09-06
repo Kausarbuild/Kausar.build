@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <!-- Paper Grain / Warm Tone -->
+    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6F3EC" />
+      <stop offset="100%" stop-color="#EFECE4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Paper Canvas -->
+  <rect width="1000" height="1000" fill="url(#paperGrad)" />
+
+  <!-- Subtle Paper Texture Overlay -->
+  <rect width="1000" height="1000" fill="#000000" opacity="0.015" />
+
+  <!-- Thin Vertical Editorial Divider Rule -->
+  <line x1="780" y1="40" x2="780" y2="960" stroke="#111111" stroke-width="1" stroke-opacity="0.35" />
+
+  <!-- Solid Black Editorial Block on Right Margin -->
+  <rect x="830" y="255" width="170" height="590" fill="#0D0D0D" />
+
+  <!-- Top Editorial Header Metadata -->
+  <g fill="#111111" font-family="Plus Jakarta Sans, Inter, -apple-system, sans-serif">
+    <!-- Top Left -->
+    <text x="50" y="60" font-weight="700" font-size="12" letter-spacing="0.8">KAUSAR.BUILD</text>
+    <text x="50" y="78" font-weight="500" font-size="11" fill="#4B5563" letter-spacing="0.5">DIGITAL AGENCY</text>
+
+    <!-- Top Center -->
+    <text x="320" y="60" font-weight="700" font-size="12" letter-spacing="0.8">STRATEGY</text>
+    <text x="320" y="78" font-weight="500" font-size="11" fill="#4B5563" letter-spacing="0.5">THROUGH DESIGN</text>
+
+    <!-- Top Right (left of divider) -->
+    <text x="760" y="60" text-anchor="end" font-weight="700" font-size="12">001</text>
+    <text x="760" y="78" text-anchor="end" font-weight="500" font-size="11" fill="#4B5563">2026</text>
+  </g>
+
+  <!-- Large Swiss Grotesk Headline -->
+  <g fill="#0A0A0A" font-family="Plus Jakarta Sans, Inter, -apple-system, sans-serif">
+    <text x="48" y="390" font-weight="800" font-size="104" letter-spacing="-3.5">To make</text>
+    <text x="48" y="525" font-weight="800" font-size="104" letter-spacing="-3.5">people trust</text>
+    <text x="48" y="660" font-weight="800" font-size="104" letter-spacing="-3.5">your business.</text>
+  </g>
+
+  <!-- Subheadline -->
+  <text x="50" y="745" font-family="Plus Jakarta Sans, Inter, -apple-system, sans-serif" font-weight="500" font-size="34" fill="#1A1A1A" letter-spacing="-0.5">
+    Not confuse them.
+  </text>
+
+  <!-- Bottom Left Categories -->
+  <g fill="#1A1A1A" font-family="Plus Jakarta Sans, Inter, -apple-system, sans-serif" font-weight="700" font-size="11" letter-spacing="1.2">
+    <text x="50" y="915">BRANDING</text>
+    <text x="50" y="933">WEBSITES</text>
+    <text x="50" y="951">EXPERIENCES</text>
+  </g>
+</svg>
