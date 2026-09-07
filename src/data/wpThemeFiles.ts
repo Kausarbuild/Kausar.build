@@ -18,7 +18,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: kausar-build
+Text Domain: studio-build
 Tags: portfolio, grid-layout, one-column, custom-colors, custom-menu, featured-images, theme-options, translation-ready
 */
 
@@ -229,6 +229,318 @@ function studio_build_handle_booking() {
 }
 add_action( 'wp_ajax_studio_build_booking', 'studio_build_handle_booking' );
 add_action( 'wp_ajax_nopriv_studio_build_booking', 'studio_build_handle_booking' );
+`,
+  },
+  {
+    path: 'index.php',
+    filename: 'index.php',
+    category: 'core',
+    description: 'Mandatory primary template required by WordPress core for all standalone themes',
+    content: `<?php
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package Studio_Build
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main studio-container max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-24">
+    <?php if ( have_posts() ) : ?>
+
+        <?php if ( is_home() && ! is_front_page() ) : ?>
+            <header class="mb-12 text-center">
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-neutral-900 tracking-tight mb-3">
+                    <?php single_post_title(); ?>
+                </h1>
+                <p class="text-neutral-500 font-mono text-xs">
+                    // <?php bloginfo( 'description' ); ?>
+                </p>
+            </header>
+        <?php elseif ( is_archive() ) : ?>
+            <header class="mb-12 text-center">
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-neutral-900 tracking-tight mb-3">
+                    <?php the_archive_title(); ?>
+                </h1>
+                <?php the_archive_description( '<div class="text-neutral-500 font-mono text-xs">// ', '</div>' ); ?>
+            </header>
+        <?php elseif ( is_search() ) : ?>
+            <header class="mb-12 text-center">
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-neutral-900 tracking-tight mb-3">
+                    <?php
+                    /* translators: %s: search query. */
+                    printf( esc_html__( 'Search Results for: %s', 'studio-build' ), '<span>' . get_search_query() . '</span>' );
+                    ?>
+                </h1>
+            </header>
+        <?php endif; ?>
+
+        <div class="space-y-8">
+            <?php
+            /* Start the Loop */
+            while ( have_posts() ) :
+                the_post();
+                ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class( 'bg-white rounded-2xl p-6 sm:p-8 border border-neutral-200/80 shadow-soft transition-all hover:border-neutral-300' ); ?>>
+                    <header class="entry-header mb-4">
+                        <div class="flex items-center gap-3 text-xs font-mono text-neutral-400 mb-2">
+                            <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+                                <?php echo esc_html( get_the_date() ); ?>
+                            </time>
+                            <span>·</span>
+                            <span><?php echo esc_html( get_the_author() ); ?></span>
+                            <?php if ( has_category() ) : ?>
+                                <span>·</span>
+                                <span class="text-[#E8590C]"><?php the_category( ', ' ); ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ( is_singular() ) : ?>
+                            <h1 class="text-2xl sm:text-3xl font-display font-bold text-neutral-900 tracking-tight">
+                                <?php the_title(); ?>
+                            </h1>
+                        <?php else : ?>
+                            <h2 class="text-xl sm:text-2xl font-display font-bold text-neutral-900 tracking-tight hover:text-[#E8590C] transition-colors">
+                                <a href="<?php the_permalink(); ?>" rel="bookmark">
+                                    <?php the_title(); ?>
+                                </a>
+                            </h2>
+                        <?php endif; ?>
+                    </header>
+
+                    <?php if ( has_post_thumbnail() && ! is_singular() ) : ?>
+                        <div class="aspect-video w-full rounded-xl overflow-hidden bg-neutral-100 mb-6 border border-neutral-200/60">
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-full object-cover hover:scale-105 transition-transform duration-300' ) ); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="entry-content text-neutral-600 leading-relaxed space-y-4">
+                        <?php
+                        if ( is_singular() ) {
+                            the_content();
+                            wp_link_pages( array(
+                                'before' => '<div class="page-links mt-6 pt-4 border-t border-neutral-100 font-mono text-xs">' . esc_html__( 'Pages:', 'studio-build' ),
+                                'after'  => '</div>',
+                            ) );
+                        } else {
+                            the_excerpt();
+                            ?>
+                            <div class="pt-2">
+                                <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#E8590C] hover:underline">
+                                    <?php esc_html_e( 'Read More →', 'studio-build' ); ?>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </article>
+                <?php
+            endwhile;
+
+            the_posts_navigation( array(
+                'prev_text' => esc_html__( '← Older posts', 'studio-build' ),
+                'next_text' => esc_html__( 'Newer posts →', 'studio-build' ),
+            ) );
+            ?>
+        </div>
+
+    <?php else : ?>
+
+        <div class="bg-white rounded-2xl p-8 sm:p-12 border border-neutral-200/80 shadow-soft text-center max-w-lg mx-auto">
+            <span class="text-4xl mb-4 block">🔍</span>
+            <h2 class="text-xl font-display font-bold text-neutral-900 mb-2">
+                <?php esc_html_e( 'Nothing Found', 'studio-build' ); ?>
+            </h2>
+            <p class="text-sm text-neutral-500 mb-6">
+                <?php esc_html_e( 'It seems we cannot find what you are looking for. Perhaps searching can help.', 'studio-build' ); ?>
+            </p>
+            <div class="max-w-xs mx-auto">
+                <?php get_search_form(); ?>
+            </div>
+        </div>
+
+    <?php endif; ?>
+</main>
+
+<?php
+get_footer();
+`,
+  },
+  {
+    path: 'page.php',
+    filename: 'page.php',
+    category: 'template',
+    description: 'Template for displaying standard WordPress pages',
+    content: `<?php
+/**
+ * The template for displaying all pages
+ *
+ * @package Studio_Build
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main studio-container max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-24">
+    <?php
+    while ( have_posts() ) :
+        the_post();
+        ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class( 'bg-white rounded-3xl p-6 sm:p-10 border border-neutral-200/80 shadow-soft' ); ?>>
+            <header class="entry-header mb-8 pb-6 border-b border-neutral-100">
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-neutral-900 tracking-tight">
+                    <?php the_title(); ?>
+                </h1>
+            </header>
+
+            <?php if ( has_post_thumbnail() ) : ?>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden bg-neutral-100 mb-8 border border-neutral-200/60">
+                    <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-full object-cover' ) ); ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="entry-content text-neutral-700 leading-relaxed space-y-4">
+                <?php
+                the_content();
+
+                wp_link_pages( array(
+                    'before' => '<div class="page-links mt-8 pt-4 border-t border-neutral-100 font-mono text-xs">' . esc_html__( 'Pages:', 'studio-build' ),
+                    'after'  => '</div>',
+                ) );
+                ?>
+            </div>
+        </article>
+        <?php
+    endwhile;
+    ?>
+</main>
+
+<?php
+get_footer();
+`,
+  },
+  {
+    path: 'single.php',
+    filename: 'single.php',
+    category: 'template',
+    description: 'Template for displaying single blog posts or articles',
+    content: `<?php
+/**
+ * The template for displaying all single posts
+ *
+ * @package Studio_Build
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main studio-container max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-24">
+    <?php
+    while ( have_posts() ) :
+        the_post();
+        ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class( 'bg-white rounded-3xl p-6 sm:p-10 border border-neutral-200/80 shadow-soft' ); ?>>
+            <header class="entry-header mb-8 pb-6 border-b border-neutral-100">
+                <div class="flex items-center gap-3 text-xs font-mono text-neutral-400 mb-3">
+                    <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+                        <?php echo esc_html( get_the_date() ); ?>
+                    </time>
+                    <span>·</span>
+                    <span><?php echo esc_html( get_the_author() ); ?></span>
+                    <?php if ( has_category() ) : ?>
+                        <span>·</span>
+                        <span class="text-[#E8590C]"><?php the_category( ', ' ); ?></span>
+                    <?php endif; ?>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-neutral-900 tracking-tight">
+                    <?php the_title(); ?>
+                </h1>
+            </header>
+
+            <?php if ( has_post_thumbnail() ) : ?>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden bg-neutral-100 mb-8 border border-neutral-200/60">
+                    <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-full object-cover' ) ); ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="entry-content text-neutral-700 leading-relaxed space-y-4">
+                <?php
+                the_content();
+
+                wp_link_pages( array(
+                    'before' => '<div class="page-links mt-8 pt-4 border-t border-neutral-100 font-mono text-xs">' . esc_html__( 'Pages:', 'studio-build' ),
+                    'after'  => '</div>',
+                ) );
+                ?>
+            </div>
+
+            <?php if ( has_tag() ) : ?>
+                <footer class="entry-footer mt-8 pt-6 border-t border-neutral-100 flex items-center gap-2 flex-wrap font-mono text-xs">
+                    <span class="text-neutral-400"><?php esc_html_e( 'Tags:', 'studio-build' ); ?></span>
+                    <?php the_tags( '<span class="bg-neutral-100 text-neutral-700 px-2.5 py-0.5 rounded-md border border-neutral-200">#', '</span> <span class="bg-neutral-100 text-neutral-700 px-2.5 py-0.5 rounded-md border border-neutral-200">#', '</span>' ); ?>
+                </footer>
+            <?php endif; ?>
+        </article>
+
+        <?php
+        the_post_navigation( array(
+            'prev_text' => '<span class="nav-subtitle font-mono text-xs text-neutral-400 block">' . esc_html__( '← Previous Post', 'studio-build' ) . '</span> <span class="nav-title font-medium text-neutral-800">%title</span>',
+            'next_text' => '<span class="nav-subtitle font-mono text-xs text-neutral-400 block">' . esc_html__( 'Next Post →', 'studio-build' ) . '</span> <span class="nav-title font-medium text-neutral-800">%title</span>',
+            'class'     => 'mt-8 flex justify-between gap-4 bg-white rounded-2xl p-6 border border-neutral-200/80 shadow-soft',
+        ) );
+    endwhile;
+    ?>
+</main>
+
+<?php
+get_footer();
+`,
+  },
+  {
+    path: '404.php',
+    filename: '404.php',
+    category: 'template',
+    description: 'Template for displaying 404 error page (Not Found)',
+    content: `<?php
+/**
+ * The template for displaying 404 pages (not found)
+ *
+ * @package Studio_Build
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main studio-container max-w-2xl mx-auto px-4 sm:px-6 pt-36 pb-24 text-center">
+    <div class="bg-white rounded-3xl p-8 sm:p-14 border border-neutral-200/80 shadow-soft">
+        <span class="inline-block px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-500 font-mono text-xs mb-4">
+            404 Error
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-display font-extrabold text-neutral-900 tracking-tight mb-4">
+            <?php esc_html_e( 'Page Not Found', 'studio-build' ); ?>
+        </h1>
+        <p class="text-neutral-600 text-sm sm:text-base leading-relaxed mb-8 max-w-md mx-auto">
+            <?php esc_html_e( 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.', 'studio-build' ); ?>
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-xs font-semibold hover:bg-neutral-800 transition-colors shadow-sm">
+                <?php esc_html_e( '← Return to Home', 'studio-build' ); ?>
+            </a>
+        </div>
+    </div>
+</main>
+
+<?php
+get_footer();
 `,
   },
   {
@@ -587,45 +899,56 @@ $manifesto_sub     = get_theme_mod( 'studio_manifesto_sub', 'Zero bloat · 100% 
         <!-- Bento Right Column: 3 modules (7 cols) -->
         <div class="sm:col-span-7 flex flex-col gap-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-                <!-- Music Player Widget -->
+                <!-- Music Player Widget (Veeran Sheher - 1:1 Layout) -->
                 <div class="bg-white rounded-2xl p-4 border border-neutral-200/80 shadow-soft flex flex-col justify-between">
-                    <div class="flex items-center justify-between text-neutral-400 mb-2">
-                        <span class="text-[10px] font-mono uppercase tracking-wider"><?php esc_html_e( 'Listening to', 'studio-build' ); ?></span>
-                        <div class="flex items-end gap-0.5 h-3">
-                            <span class="w-0.5 h-2 bg-[#E8590C] animate-pulse"></span>
-                            <span class="w-0.5 h-3 bg-[#E8590C] animate-pulse delay-75"></span>
-                            <span class="w-0.5 h-1 bg-[#E8590C] animate-pulse delay-150"></span>
+                    <div class="w-full aspect-square rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group">
+                        <img src="<?php echo esc_url( $music_cover ); ?>" alt="<?php echo esc_attr( $music_title ); ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-2 left-2 bg-black/65 text-white px-2 py-0.5 rounded-full text-[9px] font-mono flex items-center gap-1 shadow-xs">
+                            <span>🎧</span>
+                            <span><?php esc_html_e( 'Now Playing', 'studio-build' ); ?></span>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-white/90 text-neutral-900 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold shadow-xs">
+                            Spotify
                         </div>
                     </div>
 
-                    <!-- Album Vinyl Spin -->
-                    <div class="my-2 flex justify-center">
-                        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-neutral-100 shadow-md relative group">
-                            <img src="<?php echo esc_url( $music_cover ); ?>" alt="Album" class="w-full h-full object-cover animate-spin-slow">
-                            <div class="w-5 h-5 bg-white rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-neutral-300"></div>
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-between gap-2">
+                            <h3 class="text-xs font-bold text-neutral-900 font-display truncate"><?php echo esc_html( $music_title ); ?></h3>
+                            <div class="flex items-end gap-0.5 h-3 shrink-0">
+                                <span class="w-0.5 h-2 bg-[#E8590C] animate-pulse"></span>
+                                <span class="w-0.5 h-3 bg-[#E8590C] animate-pulse delay-75"></span>
+                                <span class="w-0.5 h-1 bg-[#E8590C] animate-pulse delay-150"></span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-neutral-500 font-mono tracking-tight truncate"><?php echo esc_html( $music_artist ); ?></p>
+                        
+                        <!-- Progress Bar -->
+                        <div class="pt-1 space-y-1">
+                            <div class="w-full bg-neutral-100 rounded-full h-1 overflow-hidden">
+                                <div class="bg-neutral-800 h-full w-2/5 rounded-full"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] font-mono text-neutral-400">
+                                <span>1:24</span>
+                                <span>3:01</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="text-center space-y-1">
-                        <p class="text-xs font-semibold text-neutral-900 truncate"><?php echo esc_html( $music_title ); ?></p>
-                        <p class="text-[11px] text-neutral-500 truncate"><?php echo esc_html( $music_artist ); ?></p>
-                    </div>
-
-                    <!-- Progress Bar -->
-                    <div class="mt-3 space-y-1">
-                        <div class="w-full bg-neutral-100 rounded-full h-1 overflow-hidden">
-                            <div class="bg-neutral-800 h-full w-2/5 rounded-full"></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] font-mono text-neutral-400">
-                            <span>1:24</span>
-                            <span>3:01</span>
-                        </div>
+                    <div class="w-full flex items-center justify-between gap-2 pt-2.5 mt-2 border-t border-neutral-100 text-[10px] font-mono">
+                        <span class="text-neutral-600 truncate flex items-center gap-1 font-medium">
+                            <span class="text-[#E8590C]">🎵</span>
+                            <span class="truncate">Lo-Fi / Focus Beats · On Repeat</span>
+                        </span>
+                        <span class="text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/60 shrink-0 font-medium">
+                            Audio
+                        </span>
                     </div>
                 </div>
 
-                <!-- Studio Workstation & Environment Card -->
+                <!-- Studio Workstation & Environment Card (1:1 Layout) -->
                 <div class="bg-white rounded-2xl p-4 border border-neutral-200/80 shadow-soft flex flex-col justify-between">
-                    <div class="w-full aspect-[16/11] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group">
+                    <div class="w-full aspect-square rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group">
                         <img src="<?php echo esc_url( $personal_img ); ?>" alt="<?php echo esc_attr( $personal_title ); ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-2 left-2 bg-black/65 text-white px-2 py-0.5 rounded-full text-[9px] font-mono flex items-center gap-1 shadow-xs">
                             <span>💻</span>

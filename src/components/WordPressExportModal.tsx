@@ -160,7 +160,7 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#E8590C] hover:bg-[#c94a08] text-white font-medium text-xs sm:text-sm transition-all shadow-sm"
                 >
                   <Download className="w-4 h-4" />
-                  <span>{isZipping ? 'Generating Package...' : 'Download recreated-wordpress-site.zip'}</span>
+                  <span>{isZipping ? 'Generating Package...' : 'Download kausar-build-theme.zip'}</span>
                 </button>
                 <button
                   type="button"
@@ -281,9 +281,9 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
               </h3>
               <ol className="list-decimal pl-5 space-y-2">
                 <li>
-                  Click the <strong>"Download Theme (.zip)"</strong> button above to download{' '}
+                  Click the <strong>"Download (.zip)"</strong> button above to download{' '}
                   <code className="bg-neutral-100 px-1.5 py-0.5 rounded font-mono text-xs">
-                    recreated-wordpress-site.zip
+                    kausar-build-theme.zip
                   </code>.
                 </li>
                 <li>Log in to your WordPress administrative dashboard.</li>
@@ -291,7 +291,7 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
                   Go to <strong>Appearance → Themes → Add New → Upload Theme</strong>.
                 </li>
                 <li>
-                  Choose <code className="bg-neutral-100 px-1.5 py-0.5 rounded font-mono text-xs">recreated-wordpress-site.zip</code> and click{' '}
+                  Choose <code className="bg-neutral-100 px-1.5 py-0.5 rounded font-mono text-xs">kausar-build-theme.zip</code> and click{' '}
                   <strong>Install Now</strong>.
                 </li>
                 <li>

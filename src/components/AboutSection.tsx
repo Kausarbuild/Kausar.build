@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Laptop, Cpu } from 'lucide-react';
+import { Sparkles, Laptop, Cpu, Headphones, Music } from 'lucide-react';
 import { ThemeSettings } from '../types';
 
 interface AboutSectionProps {
@@ -40,30 +40,39 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ settings }) => {
         {/* Bento 2: Right Column (7 cols on lg) */}
         <div className="lg:col-span-7 flex flex-col gap-5 justify-between">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1">
-            {/* 2A: Music Player Widget */}
+            {/* 2A: Music Player Widget (Veeran Sheher - 1:1 Layout) */}
             <div
               id="bento-music-card"
               className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-soft flex flex-col justify-between group hover:border-neutral-300 transition-colors"
             >
-              {/* Music Album/Window Image */}
-              <div className="w-full aspect-[16/11] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/60 shadow-xs mb-3">
+              {/* Photo Frame 1:1 Square */}
+              <div className="w-full aspect-square rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group/img">
                 <img
                   src={settings.musicCover}
                   alt={settings.musicTitle}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                 />
+                {/* Top overlay badge */}
+                <div className="absolute top-2.5 left-2.5 bg-black/65 backdrop-blur-xs text-white px-2.5 py-1 rounded-full text-[10px] font-mono flex items-center gap-1.5 shadow-sm">
+                  <Headphones className="w-3 h-3 text-emerald-400" />
+                  <span>Now Playing</span>
+                </div>
+                {/* Bottom-right micro-pill */}
+                <div className="absolute bottom-2.5 right-2.5 bg-white/90 backdrop-blur-xs text-neutral-900 px-2.5 py-0.5 rounded-full text-[10px] font-mono border border-white/60 shadow-xs font-semibold">
+                  Spotify
+                </div>
               </div>
 
               {/* Controls & Track Info */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
-                    <p className="text-[11px] text-neutral-400 font-mono tracking-tight truncate">
-                      {settings.musicArtist}
-                    </p>
-                    <p className="text-xs sm:text-sm font-bold text-neutral-900 font-display truncate">
+                    <h3 className="text-sm font-bold text-neutral-900 font-display truncate">
                       {settings.musicTitle}
+                    </h3>
+                    <p className="text-[11px] text-neutral-500 font-mono tracking-tight truncate">
+                      {settings.musicArtist}
                     </p>
                   </div>
                   {/* Equalizer Wave / Audio indicator */}
@@ -101,15 +110,26 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ settings }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Card Footer Bar - Matching 1:1 with Workstation */}
+              <div className="w-full flex items-center justify-between gap-2 pt-3 mt-2 border-t border-neutral-100 text-[10px] font-mono">
+                <span className="text-neutral-600 truncate flex items-center gap-1.5 font-medium">
+                  <Music className="w-3 h-3 text-[#E8590C] shrink-0" />
+                  <span className="truncate">Lo-Fi / Focus Beats · On Repeat</span>
+                </span>
+                <span className="text-neutral-500 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-200/60 shrink-0 font-medium">
+                  Audio
+                </span>
+              </div>
             </div>
 
-            {/* 2B: Studio Workstation Rig & Creative Environment */}
+            {/* 2B: Studio Workstation Rig & Creative Environment (1:1 Layout) */}
             <div
               id="bento-workspace-card"
               className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-soft flex flex-col justify-between group hover:border-neutral-300 transition-colors"
             >
-              {/* Photo Frame with Subtle Polaroid Styling */}
-              <div className="w-full aspect-[16/11] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group/img">
+              {/* Photo Frame 1:1 Square */}
+              <div className="w-full aspect-square rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group/img">
                 <img
                   src={settings.personalImage || 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=800&q=80'}
                   alt={settings.personalTitle || 'Workstation Rig'}
