@@ -25,12 +25,36 @@ function studio_build_setup() {
         'flex-width'  => true,
     ) );
 
+    // Full Site Editing & Block Editor Support
+    add_theme_support( 'block-template-parts' );
+    add_theme_support( 'wp-block-styles' );
+    add_theme_support( 'editor-styles' );
+    add_editor_style( 'assets/css/main.css' );
+    add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'align-wide' );
+
     register_nav_menus( array(
         'primary-menu' => esc_html__( 'Primary Navigation Bar', 'studio-build' ),
         'footer-menu'  => esc_html__( 'Footer Navigation', 'studio-build' ),
     ) );
 }
 add_action( 'after_setup_theme', 'studio_build_setup' );
+
+/**
+ * Register custom Gutenberg Block Pattern Categories
+ */
+function studio_build_register_pattern_categories() {
+    if ( function_exists( 'register_block_pattern_category' ) ) {
+        register_block_pattern_category(
+            'kausar-build',
+            array(
+                'label'       => esc_html__( 'Kausar.Build Sections', 'studio-build' ),
+                'description' => esc_html__( 'Design-engineered block patterns matching the live portfolio.', 'studio-build' ),
+            )
+        );
+    }
+}
+add_action( 'init', 'studio_build_register_pattern_categories' );
 
 function studio_build_scripts() {
     // Tailwind CSS Play CDN Engine for immediate visual parity

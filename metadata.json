@@ -1,6 +1,6 @@
 {
-  "name": "Kausar.Build WordPress Theme",
-  "description": "Portfolio and design engineering studio for Kausar.Build with editable CPTs, theme customizer options, consultation bookings, and 1-click ZIP export.",
+  "name": "Kausar.Build WordPress Block Theme",
+  "description": "Production-ready WordPress Block Theme with Gutenberg patterns, Full Site Editing (FSE), custom block templates, and 100% code-free client visual editor.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

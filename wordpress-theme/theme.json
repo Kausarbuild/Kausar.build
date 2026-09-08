@@ -1,0 +1,282 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "768px",
+      "wideSize": "1120px"
+    },
+    "color": {
+      "custom": true,
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "canvas",
+          "color": "#FAF9F6",
+          "name": "Canvas Background"
+        },
+        {
+          "slug": "card",
+          "color": "#FFFFFF",
+          "name": "Card Surface"
+        },
+        {
+          "slug": "text-main",
+          "color": "#121212",
+          "name": "Text Main"
+        },
+        {
+          "slug": "text-muted",
+          "color": "#525252",
+          "name": "Text Muted"
+        },
+        {
+          "slug": "text-subtle",
+          "color": "#737373",
+          "name": "Text Subtle"
+        },
+        {
+          "slug": "accent-orange",
+          "color": "#E8590C",
+          "name": "Accent Orange"
+        },
+        {
+          "slug": "accent-orange-soft",
+          "color": "#FFF4EE",
+          "name": "Accent Orange Soft"
+        },
+        {
+          "slug": "accent-green",
+          "color": "#16A34A",
+          "name": "Accent Green"
+        },
+        {
+          "slug": "border",
+          "color": "#E5E7EB",
+          "name": "Border Subtle"
+        },
+        {
+          "slug": "dark-card",
+          "color": "#171717",
+          "name": "Dark Card"
+        }
+      ]
+    },
+    "typography": {
+      "customFontSize": true,
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "'Plus Jakarta Sans', sans-serif",
+          "name": "Plus Jakarta Sans",
+          "slug": "display"
+        },
+        {
+          "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+          "name": "Inter",
+          "slug": "sans"
+        },
+        {
+          "fontFamily": "'JetBrains Mono', monospace",
+          "name": "JetBrains Mono",
+          "slug": "mono"
+        },
+        {
+          "fontFamily": "'Caveat', cursive",
+          "name": "Caveat",
+          "slug": "handwriting"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "xs",
+          "size": "12px",
+          "name": "XS (12px)"
+        },
+        {
+          "slug": "sm",
+          "size": "14px",
+          "name": "Small (14px)"
+        },
+        {
+          "slug": "base",
+          "size": "16px",
+          "name": "Base (16px)"
+        },
+        {
+          "slug": "lg",
+          "size": "18px",
+          "name": "Large (18px)"
+        },
+        {
+          "slug": "xl",
+          "size": "20px",
+          "name": "XL (20px)"
+        },
+        {
+          "slug": "2xl",
+          "size": "24px",
+          "name": "2XL (24px)"
+        },
+        {
+          "slug": "3xl",
+          "size": "30px",
+          "name": "3XL (30px)"
+        },
+        {
+          "slug": "4xl",
+          "size": "38px",
+          "name": "4XL (38px)"
+        },
+        {
+          "slug": "5xl",
+          "size": "48px",
+          "name": "5XL (48px)"
+        },
+        {
+          "slug": "6xl",
+          "size": "56px",
+          "name": "6XL (56px)"
+        }
+      ]
+    },
+    "spacing": {
+      "customSpacingSize": true,
+      "units": ["px", "em", "rem", "vh", "vw", "%"]
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "name": "Card Soft",
+          "shadow": "0 10px 30px -5px rgba(0, 0, 0, 0.04)",
+          "slug": "card-soft"
+        },
+        {
+          "name": "Card Float",
+          "shadow": "0 20px 40px -15px rgba(0, 0, 0, 0.08)",
+          "slug": "card-float"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--canvas)",
+      "text": "var(--wp--preset--color--text-main)"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--sans)",
+      "fontSize": "var(--wp--preset--font-size--base)",
+      "lineHeight": "1.6"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        },
+        "typography": {
+          "textDecoration": "none"
+        },
+        ":hover": {
+          "color": {
+            "text": "var(--wp--preset--color--accent-orange)"
+          }
+        }
+      },
+      "heading": {
+        "color": {
+          "text": "var(--wp--preset--color--text-main)"
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--display)",
+          "fontWeight": "700",
+          "lineHeight": "1.15"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--5xl)",
+          "fontWeight": "700",
+          "lineHeight": "1.1"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--3xl)",
+          "fontWeight": "700",
+          "lineHeight": "1.2"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--2xl)",
+          "fontWeight": "600",
+          "lineHeight": "1.3"
+        }
+      },
+      "button": {
+        "border": {
+          "radius": "9999px"
+        },
+        "color": {
+          "background": "var(--wp--preset--color--text-main)",
+          "text": "#FFFFFF"
+        },
+        "spacing": {
+          "padding": {
+            "top": "10px",
+            "bottom": "10px",
+            "left": "20px",
+            "right": "20px"
+          }
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--sans)",
+          "fontSize": "14px",
+          "fontWeight": "500"
+        }
+      }
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": "9999px"
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontSize": "14px",
+          "fontWeight": "500"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header Navigation",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Site Footer",
+      "area": "footer"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "page-no-title",
+      "title": "Page without Title",
+      "postTypes": ["page"]
+    }
+  ]
+}

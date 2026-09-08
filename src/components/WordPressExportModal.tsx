@@ -23,13 +23,18 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
   onClose,
 }) => {
   const [activeTab, setActiveTab] = useState<'download' | 'files' | 'guide'>('download');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedFileIndex, setSelectedFileIndex] = useState<number>(0);
   const [copied, setCopied] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
 
   if (!isOpen) return null;
 
-  const currentFile = wpThemeFiles[selectedFileIndex] || wpThemeFiles[0];
+  const filteredFiles = selectedCategory === 'all'
+    ? wpThemeFiles
+    : wpThemeFiles.filter(f => f.category === selectedCategory);
+
+  const currentFile = filteredFiles[selectedFileIndex] || filteredFiles[0] || wpThemeFiles[0];
 
   const handleDownloadZip = async () => {
     try {
@@ -174,7 +179,13 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
             </div>
 
             {/* Architecture Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 space-y-1.5">
+                <p className="font-mono text-xs font-bold text-neutral-900">Block Editor & Patterns</p>
+                <p className="text-xs text-neutral-500">
+                  Native Gutenberg block patterns, theme.json style tokens, and Site Editor templates for full drag-and-drop visual editing.
+                </p>
+              </div>
               <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 space-y-1.5">
                 <p className="font-mono text-xs font-bold text-neutral-900">Custom Post Types</p>
                 <p className="text-xs text-neutral-500">
@@ -201,10 +212,12 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
                 Included Theme Files ({wpThemeFiles.length})
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs">
-                {wpThemeFiles.map((file, idx) => (
+                {wpThemeFiles.map((file) => (
                   <div
                     key={file.path}
                     onClick={() => {
+                      const idx = wpThemeFiles.findIndex(f => f.path === file.path);
+                      setSelectedCategory('all');
                       setSelectedFileIndex(idx);
                       setActiveTab('files');
                     }}
@@ -225,25 +238,48 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
         {activeTab === 'files' && (
           <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
             {/* Sidebar file list */}
-            <div className="w-full md:w-64 border-r border-neutral-200 bg-neutral-50/70 p-3 overflow-y-auto shrink-0 space-y-1 text-xs font-mono">
-              <p className="text-[10px] uppercase font-bold text-neutral-400 px-2 py-1">
-                Theme Files
-              </p>
-              {wpThemeFiles.map((file, idx) => (
-                <button
-                  key={file.path}
-                  type="button"
-                  onClick={() => setSelectedFileIndex(idx)}
-                  className={`w-full text-left px-2.5 py-2 rounded-xl transition-colors flex items-center justify-between ${
-                    selectedFileIndex === idx
-                      ? 'bg-neutral-900 text-white font-semibold'
-                      : 'text-neutral-700 hover:bg-neutral-200/60'
-                  }`}
-                >
-                  <span className="truncate">{file.path}</span>
-                  <span className="text-[9px] opacity-70 uppercase">{file.category}</span>
-                </button>
-              ))}
+            <div className="w-full md:w-72 border-r border-neutral-200 bg-neutral-50/70 p-3 overflow-y-auto shrink-0 space-y-2 text-xs font-mono">
+              <div className="flex items-center justify-between px-1">
+                <p className="text-[10px] uppercase font-bold text-neutral-400">
+                  Theme Files ({filteredFiles.length})
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-1 pb-1">
+                {['all', 'pattern', 'template', 'part', 'core', 'include', 'asset'].map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory(cat);
+                      setSelectedFileIndex(0);
+                    }}
+                    className={`px-2 py-0.5 rounded text-[10px] uppercase font-mono transition-colors ${
+                      selectedCategory === cat
+                        ? 'bg-neutral-900 text-white font-bold'
+                        : 'bg-neutral-200/70 text-neutral-600 hover:bg-neutral-300'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+              <div className="space-y-1">
+                {filteredFiles.map((file, idx) => (
+                  <button
+                    key={file.path}
+                    type="button"
+                    onClick={() => setSelectedFileIndex(idx)}
+                    className={`w-full text-left px-2.5 py-1.5 rounded-xl transition-colors flex items-center justify-between ${
+                      selectedFileIndex === idx
+                        ? 'bg-neutral-900 text-white font-semibold'
+                        : 'text-neutral-700 hover:bg-neutral-200/60'
+                    }`}
+                  >
+                    <span className="truncate">{file.path}</span>
+                    <span className="text-[9px] opacity-70 uppercase shrink-0 ml-1">{file.category}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Code view area */}
@@ -305,7 +341,30 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
 
             <div className="space-y-4 pt-4 border-t border-neutral-200">
               <h3 className="font-display font-bold text-base sm:text-lg text-neutral-900">
-                2. Replacing Content & Customizing
+                2. WordPress Block Editor (Gutenberg) & Full Site Editing
+              </h3>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Built specifically for completely non-technical clients to manage, reorder, add, and visually design any section without touching a single line of code:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-xs text-neutral-600">
+                <li>
+                  <strong>Appearance → Editor (Full Site Editor):</strong> Access the modern WordPress Site Editor to visually browse and adjust your templates (Homepage, Single Project, Default Page, 404) and template parts (Header, Footer).
+                </li>
+                <li>
+                  <strong>1-Click Block Patterns:</strong> When editing any page, click the <strong>+ (Block Inserter)</strong> at the top left, select <strong>Patterns → Kausar.Build Sections</strong>, and click any section (Hero, About Bento Grid, Selected Projects, Services Accordion, Testimonials Carousel, or Consultation Booking Form) to drop it into the page instantly.
+                </li>
+                <li>
+                  <strong>Inline Editing:</strong> Click any heading, paragraph, badge, or button directly on the canvas to edit its copy, change button links, or alter alignments.
+                </li>
+                <li>
+                  <strong>Reorder & Delete Sections:</strong> Open the <strong>List View</strong> (three stacked lines icon) in the editor toolbar to drag sections up or down, duplicate them with one click, or delete unwanted sections effortlessly.
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-neutral-200">
+              <h3 className="font-display font-bold text-base sm:text-lg text-neutral-900">
+                3. Replacing Content via Custom Post Types & Customizer
               </h3>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
@@ -330,7 +389,7 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
 
             <div className="space-y-4 pt-4 border-t border-neutral-200">
               <h3 className="font-display font-bold text-base sm:text-lg text-neutral-900">
-                3. Direct Image Replacement (100% Code-Free)
+                4. Direct Image Replacement (100% Code-Free)
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
                 Every single image on the website can be replaced directly from your WordPress dashboard using the native Media Library:
@@ -381,7 +440,7 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
 
             <div className="space-y-4 pt-4 border-t border-neutral-200">
               <h3 className="font-display font-bold text-base sm:text-lg text-neutral-900">
-                4. Connecting External Calendars (Calendly / Cal.com / Stripe)
+                5. Connecting External Calendars (Calendly / Cal.com / Stripe)
               </h3>
               <p className="text-xs text-neutral-600">
                 The theme provides a native WordPress action hook inside{' '}

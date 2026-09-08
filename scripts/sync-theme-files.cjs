@@ -7,16 +7,21 @@ const publicSvgDir = path.resolve(__dirname, '../public/assets/projects');
 
 function getCategory(relPath) {
   if (relPath.startsWith('assets/')) return 'asset';
+  if (relPath.startsWith('inc/elementor/')) return 'include';
   if (relPath.startsWith('inc/')) return 'include';
+  if (relPath.startsWith('patterns/')) return 'pattern';
+  if (relPath.startsWith('parts/')) return 'part';
+  if (relPath.startsWith('templates/')) return 'template';
   if (relPath.startsWith('template-parts/')) return 'template';
-  if (['style.css', 'functions.php', 'index.php'].includes(relPath)) return 'core';
+  if (['style.css', 'functions.php', 'index.php', 'theme.json'].includes(relPath)) return 'core';
   return 'template';
 }
 
 function getDescription(relPath) {
   const map = {
     'style.css': 'Theme stylesheet & WordPress theme registration header',
-    'functions.php': 'Theme setup, asset enqueues, scripts, and AJAX endpoints',
+    'theme.json': 'Global styles, typography presets, spacing scale, and color tokens for Block Editor & FSE',
+    'functions.php': 'Theme setup, asset enqueues, FSE support, scripts, and AJAX endpoints',
     'index.php': 'Universal fallback & main post loop template (renders front page if homepage)',
     'front-page.php': 'Homepage template rendering all reference sections modularly',
     'header.php': 'Document head, Google Fonts, Tailwind Play CDN, and floating navigation',
@@ -24,6 +29,19 @@ function getDescription(relPath) {
     'page.php': 'Standard single page template with container styling',
     'single.php': 'Single post & project article detail template',
     '404.php': '404 Not Found error page template',
+    'parts/header.html': 'Gutenberg Block Template Part for site navigation and status badge',
+    'parts/footer.html': 'Gutenberg Block Template Part for editorial footer and social links',
+    'templates/front-page.html': 'Full Site Editing (FSE) block template for homepage layout',
+    'templates/index.html': 'Full Site Editing (FSE) block template for blog archive and query loop',
+    'templates/page.html': 'Full Site Editing (FSE) block template for standard single pages',
+    'templates/single.html': 'Full Site Editing (FSE) block template for single posts & case studies',
+    'templates/404.html': 'Full Site Editing (FSE) block template for 404 error page',
+    'patterns/hero.php': 'Gutenberg Block Pattern: Editorial hero section with greeting, badge card, and CTAs',
+    'patterns/about-bento.php': 'Gutenberg Block Pattern: Bento grid with bio, workstation rig, and Spotify player',
+    'patterns/projects.php': 'Gutenberg Block Pattern: Selected works grid with tech tags and live preview links',
+    'patterns/services.php': 'Gutenberg Block Pattern: Services overview with deliverables, timeline, and pricing',
+    'patterns/testimonials.php': 'Gutenberg Block Pattern: Client testimonials grid with reviewer avatars and quotes',
+    'patterns/booking.php': 'Gutenberg Block Pattern: Interactive consultation scheduler and project inquiry form',
     'assets/css/main.css': 'Base styling, dot patterns, animations, and lanyard physics',
     'assets/js/main.js': 'Lanyard 3D tilt, accordion logic, testimonial slider, booking wizard',
     'template-parts/hero/section-hero.php': 'Hero section with mobile-first lanyard pass and interactive greeting',
@@ -120,7 +138,7 @@ const tsContent = `// Auto-generated synchronized WordPress theme files definiti
 export interface ThemeFile {
   path: string;
   filename: string;
-  category: 'core' | 'template' | 'include' | 'asset';
+  category: 'core' | 'template' | 'include' | 'asset' | 'pattern' | 'part';
   description: string;
   content: string;
 }
