@@ -11,6 +11,11 @@
  * @package Studio_Build
  */
 
+if ( is_front_page() ) {
+    include get_template_directory() . '/front-page.php';
+    return;
+}
+
 get_header();
 ?>
 
@@ -63,71 +68,63 @@ get_header();
                                 <span class="text-[#E8590C]"><?php the_category( ', ' ); ?></span>
                             <?php endif; ?>
                         </div>
-                        <?php if ( is_singular() ) : ?>
-                            <h1 class="text-2xl sm:text-3xl font-display font-bold text-neutral-900 tracking-tight">
+                        <h2 class="entry-title text-xl sm:text-2xl font-display font-bold text-neutral-900 hover:text-[#E8590C] transition-colors">
+                            <a href="<?php the_permalink(); ?>" rel="bookmark">
                                 <?php the_title(); ?>
-                            </h1>
-                        <?php else : ?>
-                            <h2 class="text-xl sm:text-2xl font-display font-bold text-neutral-900 tracking-tight hover:text-[#E8590C] transition-colors">
-                                <a href="<?php the_permalink(); ?>" rel="bookmark">
-                                    <?php the_title(); ?>
-                                </a>
-                            </h2>
-                        <?php endif; ?>
+                            </a>
+                        </h2>
                     </header>
 
-                    <?php if ( has_post_thumbnail() && ! is_singular() ) : ?>
-                        <div class="aspect-video w-full rounded-xl overflow-hidden bg-neutral-100 mb-6 border border-neutral-200/60">
+                    <?php if ( has_post_thumbnail() ) : ?>
+                        <div class="post-thumbnail mb-6 rounded-xl overflow-hidden aspect-[16/9] bg-neutral-100">
                             <a href="<?php the_permalink(); ?>">
-                                <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-full object-cover hover:scale-105 transition-transform duration-300' ) ); ?>
+                                <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-full object-cover' ) ); ?>
                             </a>
                         </div>
                     <?php endif; ?>
 
-                    <div class="entry-content text-neutral-600 leading-relaxed space-y-4">
-                        <?php
-                        if ( is_singular() ) {
-                            the_content();
-                            wp_link_pages( array(
-                                'before' => '<div class="page-links mt-6 pt-4 border-t border-neutral-100 font-mono text-xs">' . esc_html__( 'Pages:', 'studio-build' ),
-                                'after'  => '</div>',
-                            ) );
-                        } else {
-                            the_excerpt();
-                            ?>
-                            <div class="pt-2">
-                                <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#E8590C] hover:underline">
-                                    <?php esc_html_e( 'Read More →', 'studio-build' ); ?>
-                                </a>
-                            </div>
-                            <?php
-                        }
-                        ?>
+                    <div class="entry-summary text-neutral-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                        <?php the_excerpt(); ?>
                     </div>
-                </article>
-                <?php
-            endwhile;
 
-            the_posts_navigation( array(
-                'prev_text' => esc_html__( '← Older posts', 'studio-build' ),
-                'next_text' => esc_html__( 'Newer posts →', 'studio-build' ),
-            ) );
-            ?>
+                    <footer class="entry-footer pt-4 border-t border-neutral-100 flex items-center justify-between">
+                        <a href="<?php the_permalink(); ?>" class="text-xs font-mono font-medium text-neutral-900 hover:text-[#E8590C] flex items-center gap-1 transition-colors">
+                            <span><?php esc_html_e( 'Read Article', 'studio-build' ); ?></span>
+                            <span>→</span>
+                        </a>
+                        <span class="text-xs font-mono text-neutral-400">
+                            <?php comments_number( '0 comments', '1 comment', '% comments' ); ?>
+                        </span>
+                    </footer>
+                </article>
+            <?php endwhile; ?>
         </div>
+
+        <?php
+        the_posts_pagination( array(
+            'prev_text'          => '← ' . esc_html__( 'Previous', 'studio-build' ),
+            'next_text'          => esc_html__( 'Next', 'studio-build' ) . ' →',
+            'before_page_number' => '<span class="meta-nav screen-reader-text">' . esc_html__( 'Page', 'studio-build' ) . ' </span>',
+            'class'              => 'pagination flex justify-center items-center gap-2 pt-12 text-sm font-mono',
+        ) );
+        ?>
 
     <?php else : ?>
 
-        <div class="bg-white rounded-2xl p-8 sm:p-12 border border-neutral-200/80 shadow-soft text-center max-w-lg mx-auto">
-            <span class="text-4xl mb-4 block">🔍</span>
-            <h2 class="text-xl font-display font-bold text-neutral-900 mb-2">
-                <?php esc_html_e( 'Nothing Found', 'studio-build' ); ?>
-            </h2>
-            <p class="text-sm text-neutral-500 mb-6">
-                <?php esc_html_e( 'It seems we cannot find what you are looking for. Perhaps searching can help.', 'studio-build' ); ?>
-            </p>
-            <div class="max-w-xs mx-auto">
-                <?php get_search_form(); ?>
+        <div class="no-results not-found bg-white rounded-2xl p-10 text-center border border-neutral-200 shadow-soft max-w-lg mx-auto">
+            <div class="w-12 h-12 rounded-full bg-neutral-100 text-neutral-400 flex items-center justify-center mx-auto mb-4 font-mono text-lg">
+                ?
             </div>
+            <h1 class="page-title text-2xl font-display font-bold text-neutral-900 mb-2">
+                <?php esc_html_e( 'Nothing Found', 'studio-build' ); ?>
+            </h1>
+            <p class="text-neutral-500 text-sm mb-6">
+                <?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Try returning to the homepage.', 'studio-build' ); ?>
+            </p>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-xs font-medium hover:bg-neutral-800 transition-all">
+                <span>←</span>
+                <span><?php esc_html_e( 'Back to Home', 'studio-build' ); ?></span>
+            </a>
         </div>
 
     <?php endif; ?>

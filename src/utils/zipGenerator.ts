@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
 import { wpThemeFiles } from '../data/wpThemeFiles';
+import { projectSvgs } from '../data/projectSvgs';
 
 export async function generateWordPressThemeZip(): Promise<Blob> {
   const zip = new JSZip();
@@ -14,6 +15,11 @@ export async function generateWordPressThemeZip(): Promise<Blob> {
   // Populate theme files
   for (const file of wpThemeFiles) {
     themeFolder.file(file.path, file.content);
+  }
+
+  // Populate project SVG graphics in assets/projects/
+  for (const [svgFilename, svgContent] of Object.entries(projectSvgs)) {
+    themeFolder.file(`assets/projects/${svgFilename}`, svgContent);
   }
 
   // Generate a high-resolution screenshot.png for the WordPress Appearance > Themes preview

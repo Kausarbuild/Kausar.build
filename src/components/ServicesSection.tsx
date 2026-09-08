@@ -59,10 +59,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ services, acce
               </div>
 
               {isOpen && (
-                <div className="mt-2.5 pl-9 sm:pl-14 max-w-2xl animate-in fade-in duration-200">
+                <div className="mt-2.5 pl-9 sm:pl-14 max-w-2xl animate-in fade-in duration-200 space-y-3">
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
                     {service.description}
                   </p>
+                  <a
+                    href="#book"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 hover:text-orange-600 transition-colors pt-1"
+                  >
+                    <span>Inquire about this service</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               )}
             </div>

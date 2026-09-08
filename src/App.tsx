@@ -13,6 +13,7 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { BookingSection } from './components/BookingSection';
 import { FooterSection } from './components/FooterSection';
+import { ResumeModal } from './components/ResumeModal';
 import { WordPressAdminDrawer } from './components/WordPressAdminDrawer';
 import { WordPressExportModal } from './components/WordPressExportModal';
 import {
@@ -71,6 +72,7 @@ export default function App() {
 
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isCVOpen, setIsCVOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('kausar_portfolio_theme_v4', JSON.stringify(settings));
@@ -97,7 +99,7 @@ export default function App() {
       {/* Main Single-View Layout matching Reference Proportions */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-16 sm:pb-24 space-y-20 sm:space-y-28">
         {/* 1. Hero Section with 3D Hanging Lanyard Pass */}
-        <HeroSection settings={settings} />
+        <HeroSection settings={settings} onOpenCV={() => setIsCVOpen(true)} />
 
         {/* 2. About Me Bento Grid */}
         <AboutSection settings={settings} />
@@ -120,6 +122,13 @@ export default function App() {
 
       {/* Footer Section */}
       <FooterSection settings={settings} />
+
+      {/* Curriculum Vitae Modal */}
+      <ResumeModal
+        isOpen={isCVOpen}
+        onClose={() => setIsCVOpen(false)}
+        settings={settings}
+      />
 
       {/* WordPress Customizer Live Drawer */}
       <WordPressAdminDrawer

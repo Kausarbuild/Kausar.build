@@ -31,7 +31,8 @@ const processSteps = [
 
 export const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ settings }) => {
   return (
-    <section id="pricing" className="space-y-8">
+    <section id="pricing" className="space-y-8 scroll-mt-24 relative">
+      <span id="process" className="sr-only" tabIndex={-1} />
       {/* Header */}
       <div className="space-y-1">
         <span

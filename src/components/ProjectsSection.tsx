@@ -8,7 +8,8 @@ interface ProjectsSectionProps {
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, accentColor }) => {
   return (
-    <section id="work" className="space-y-8">
+    <section id="work" className="space-y-8 scroll-mt-24 relative">
+      <span id="projects" className="sr-only" tabIndex={-1} />
       {/* Header */}
       <div className="space-y-1">
         <span

@@ -66,5 +66,26 @@ function studio_build_register_cpts() {
         'supports'      => array( 'title', 'excerpt', 'page-attributes' ),
         'show_in_rest'  => true,
     ) );
+
+    // Store incoming consultation inquiries for easy review in WordPress Admin
+    register_post_type( 'consultation_inquiry', array(
+        'labels' => array(
+            'name'               => esc_html__( 'Consultations', 'studio-build' ),
+            'singular_name'      => esc_html__( 'Consultation', 'studio-build' ),
+            'menu_name'          => esc_html__( 'Consultations', 'studio-build' ),
+            'all_items'          => esc_html__( 'All Inquiries', 'studio-build' ),
+            'edit_item'          => esc_html__( 'View Inquiry', 'studio-build' ),
+            'search_items'       => esc_html__( 'Search Consultations', 'studio-build' ),
+            'not_found'          => esc_html__( 'No consultations found', 'studio-build' ),
+        ),
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'menu_icon'          => 'dashicons-email-alt2',
+        'capability_type'    => 'post',
+        'capabilities'       => array( 'create_posts' => false ),
+        'map_meta_cap'       => true,
+        'supports'           => array( 'title', 'editor' ),
+    ) );
 }
 add_action( 'init', 'studio_build_register_cpts' );

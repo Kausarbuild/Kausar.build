@@ -1,53 +1,21 @@
-import React, { useState } from 'react';
-import { ArrowRight, Check, RotateCcw, Calendar, Github, Linkedin, Instagram, Twitter, Mail } from 'lucide-react';
+import React from 'react';
+import { Phone, Instagram, ArrowUpRight, Github, Linkedin, Twitter, Mail, MessageCircle } from 'lucide-react';
 import { BookingConsultationService, ThemeSettings } from '../types';
 
 interface BookingSectionProps {
-  services: BookingConsultationService[];
+  services?: BookingConsultationService[];
   settings: ThemeSettings;
 }
 
-export const BookingSection: React.FC<BookingSectionProps> = ({ services, settings }) => {
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
-  const [selectedServiceId, setSelectedServiceId] = useState<string>(services[0]?.id || 'booking-1');
-  const [clientName, setClientName] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
-  const [clientNotes, setClientNotes] = useState('');
-  const [preferredDateTime, setPreferredDateTime] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+export const BookingSection: React.FC<BookingSectionProps> = ({ settings }) => {
+  const whatsappNumber = '+916002357235';
+  const whatsappClean = '916002357235';
+  const phoneNumber = '+916002357235';
+  const instagramUsername = 'Kausar.build';
 
-  const selectedService = services.find((s) => s.id === selectedServiceId) || services[0];
-
-  const renderPrice = (price: number | string) => {
-    if (typeof price === 'string') {
-      return price.toLowerCase() === 'free' || price === '0' || !price ? 'Free' : price;
-    }
-    return price === 0 ? 'Free' : `$${price}`;
-  };
-
-  const handleNext = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage('');
-
-    if (currentStep === 1) {
-      setCurrentStep(2);
-    } else if (currentStep === 2) {
-      if (!clientName.trim() || !clientEmail.trim()) {
-        setErrorMessage('Please enter both your name and a valid email address.');
-        return;
-      }
-      setCurrentStep(3);
-    }
-  };
-
-  const handleReset = () => {
-    setCurrentStep(1);
-    setClientName('');
-    setClientEmail('');
-    setClientNotes('');
-    setPreferredDateTime('');
-    setErrorMessage('');
-  };
+  const whatsappUrl = `https://wa.me/${whatsappClean}`;
+  const instagramUrl = `https://instagram.com/${instagramUsername}`;
+  const telUrl = `tel:${phoneNumber}`;
 
   // Only show social icons if URL is set and non-empty
   const hasSocials = Boolean(
@@ -59,20 +27,20 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ services, settin
   );
 
   return (
-    <section id="book" className="space-y-8">
+    <section id="book" className="space-y-8 scroll-mt-24">
       {/* Header */}
       <div className="space-y-1">
         <span
           className="font-mono text-xs font-semibold uppercase tracking-wider block"
           style={{ color: settings.accentColor }}
         >
-          // Consultation
+          // Connect
         </span>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-neutral-900 tracking-tight">
-          Book a conversation
+          Let’s talk
         </h2>
         <p className="text-neutral-600 text-xs sm:text-sm max-w-xl">
-          Pick a topic, select a time that suits you, and let’s talk through your project.
+          Direct communication, zero friction. Reach out directly via WhatsApp, Instagram, or give me a call.
         </p>
       </div>
 
@@ -163,230 +131,149 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ services, settin
           </div>
         </div>
 
-        {/* Right: 3-Step Interactive Booking Card */}
+        {/* Right: Clean 3-Option Contact Section */}
         <div
-          id="booking-interactive-card"
-          className="lg:col-span-7 bg-white rounded-3xl border border-neutral-200/80 shadow-soft p-5 sm:p-7 flex flex-col justify-between"
+          id="contact-options-card"
+          className="lg:col-span-7 bg-white rounded-3xl border border-neutral-200/80 shadow-soft p-5 sm:p-7 flex flex-col justify-between space-y-6"
         >
-          <form onSubmit={handleNext} className="space-y-5">
-            {/* Step Header with rich terracotta background */}
-            <div
-              className="p-4 rounded-2xl flex items-center justify-between text-white transition-colors"
-              style={{
-                backgroundColor: settings.accentColor,
-              }}
-            >
-              <div>
-                <h3 className="font-display font-bold text-base">
-                  {currentStep === 1
-                    ? 'Select Consultation Topic'
-                    : currentStep === 2
-                    ? 'Contact & Details'
-                    : 'Request Confirmed'}
-                </h3>
-                <p className="text-[11px] text-orange-100 font-mono">
-                  Step {currentStep} of 3
-                </p>
-              </div>
-
-              {/* Progress Dots */}
-              <div className="flex items-center gap-1.5">
-                <span
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentStep === 1 ? 'bg-white scale-110' : 'bg-white/40'
-                  }`}
-                />
-                <span
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentStep === 2 ? 'bg-white scale-110' : 'bg-white/40'
-                  }`}
-                />
-                <span
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentStep === 3 ? 'bg-white scale-110' : 'bg-white/40'
-                  }`}
-                />
-              </div>
+          {/* Section Card Header */}
+          <div
+            className="p-4 sm:p-5 rounded-2xl flex items-center justify-between text-white transition-colors"
+            style={{ backgroundColor: settings.accentColor }}
+          >
+            <div>
+              <h3 className="font-display font-bold text-base sm:text-lg">
+                Direct Contact
+              </h3>
+              <p className="text-[11px] text-orange-100 font-mono mt-0.5">
+                Fast response · Open for collaborations & consultations
+              </p>
             </div>
+            <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-xs px-3 py-1 rounded-full text-[10px] font-mono tracking-wider text-white border border-white/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>ONLINE</span>
+            </div>
+          </div>
 
-            {/* Step 1: Radio Selection */}
-            {currentStep === 1 && (
-              <div className="space-y-3 animate-in fade-in duration-200">
-                <fieldset className="space-y-3">
-                  <legend className="sr-only">Choose consultation option</legend>
-                  {services.map((serv) => {
-                    const isSelected = selectedServiceId === serv.id;
-                    return (
-                      <label
-                        key={serv.id}
-                        className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 p-3.5 sm:p-4 rounded-2xl border transition-all cursor-pointer ${
-                          isSelected
-                            ? 'border-orange-500 bg-orange-50/40 shadow-xs ring-1 ring-orange-500/20'
-                            : 'border-neutral-200 bg-neutral-50/60 hover:bg-neutral-100/70 hover:border-neutral-300'
-                        }`}
-                      >
-                        <div className="flex items-start gap-3 min-w-0">
-                          <input
-                            type="radio"
-                            name="booking_service"
-                            checked={isSelected}
-                            onChange={() => setSelectedServiceId(serv.id)}
-                            className="mt-0.5 text-orange-600 focus:ring-orange-500 shrink-0"
-                          />
-                          <div className="min-w-0">
-                            <p className="text-xs sm:text-sm font-semibold text-neutral-900 leading-snug">
-                              {serv.title}
-                            </p>
-                            <p className="text-[11px] text-neutral-500 font-mono mt-0.5 leading-normal">
-                              {serv.duration} · {serv.description}
-                            </p>
-                          </div>
-                        </div>
-                        <span className="font-display font-bold text-xs sm:text-sm text-neutral-900 shrink-0 self-end sm:self-center pl-7 sm:pl-2">
-                          {renderPrice(serv.price)}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </fieldset>
-              </div>
-            )}
-
-            {/* Step 2: Name & Email & Details inputs */}
-            {currentStep === 2 && (
-              <div className="space-y-3 animate-in fade-in duration-200">
-                <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200/80 text-xs text-neutral-600 flex justify-between items-center font-mono">
-                  <span>Selected: <strong>{selectedService.title}</strong></span>
-                  <span className="font-bold text-neutral-900">{renderPrice(selectedService.price)}</span>
+          {/* Three Functional Contact Options */}
+          <div className="space-y-3.5">
+            {/* Option 1: WhatsApp */}
+            <a
+              id="contact-whatsapp-btn"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-neutral-200 bg-neutral-50/70 hover:bg-emerald-50/40 hover:border-emerald-300 hover:shadow-xs transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-100/80 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-200/60 group-hover:scale-105 transition-transform">
+                  {/* WhatsApp SVG Icon */}
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c4.52 0 8.24 3.72 8.24 8.24 0 2.2-.86 4.27-2.42 5.82a8.196 8.196 0 0 1-5.82 2.42c-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 0 1-1.25-4.38c0-4.52 3.72-8.24 8.24-8.24m4.53 11.53c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24a7.514 7.514 0 0 1-1.4-1.73c-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.78.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29" />
+                  </svg>
                 </div>
-
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-600 mb-1">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={clientName}
-                      onChange={(e) => setClientName(e.target.value)}
-                      placeholder="Your name"
-                      className="w-full text-xs rounded-xl border border-neutral-300 bg-white p-2.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-hidden"
-                    />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="font-display font-bold text-sm text-neutral-900 leading-snug group-hover:text-emerald-950 transition-colors">
+                      WhatsApp
+                    </p>
+                    <span className="font-mono text-[10px] text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded-full border border-emerald-200/50">
+                      Fastest
+                    </span>
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-600 mb-1">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={clientEmail}
-                      onChange={(e) => setClientEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      className="w-full text-xs rounded-xl border border-neutral-300 bg-white p-2.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-hidden"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-600 mb-1">
-                      Project Details
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={clientNotes}
-                      onChange={(e) => setClientNotes(e.target.value)}
-                      placeholder="Tell me briefly about what you’d like to build..."
-                      className="w-full text-xs rounded-xl border border-neutral-300 bg-white p-2.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-hidden"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-600 mb-1">
-                      Preferred Date & Time
-                    </label>
-                    <input
-                      type="text"
-                      value={preferredDateTime}
-                      onChange={(e) => setPreferredDateTime(e.target.value)}
-                      placeholder="e.g. Next Tuesday morning or afternoon"
-                      className="w-full text-xs rounded-xl border border-neutral-300 bg-white p-2.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-hidden"
-                    />
-                  </div>
-                </div>
-
-                {errorMessage && (
-                  <p className="text-xs text-red-600 font-medium">{errorMessage}</p>
-                )}
-              </div>
-            )}
-
-            {/* Step 3: Confirmation Summary */}
-            {currentStep === 3 && (
-              <div className="text-center py-5 space-y-4 animate-in zoom-in-95 duration-200">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl shadow-xs">
-                  <Check className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-display font-bold text-base text-neutral-900">
-                    Conversation Request Sent
-                  </h4>
-                  <p className="text-xs text-neutral-500 max-w-sm mx-auto leading-relaxed">
-                    Thank you, <strong className="text-neutral-800">{clientName}</strong>. Your
-                    request for <strong>{selectedService.title}</strong> has been received. I'll
-                    be in touch at <strong className="text-neutral-800">{clientEmail}</strong>.
+                  <p className="text-xs font-mono font-semibold text-emerald-800 mt-0.5">
+                    {whatsappNumber}
+                  </p>
+                  <p className="text-[11px] text-neutral-500 font-mono mt-0.5">
+                    Click to open direct chat in WhatsApp
                   </p>
                 </div>
-
-                <div className="p-3 bg-neutral-50 rounded-2xl border border-neutral-100 text-left text-[11px] space-y-1 font-mono text-neutral-600 max-w-xs mx-auto">
-                  <div className="flex justify-between">
-                    <span>Topic:</span>
-                    <span className="text-neutral-900 font-semibold">{selectedService.title}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Duration:</span>
-                    <span>{selectedService.duration}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Fee:</span>
-                    <span className="text-neutral-900 font-bold">{renderPrice(selectedService.price)}</span>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-mono transition-colors"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" /> Book Another Session
-                </button>
               </div>
-            )}
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-900 text-white text-xs font-medium group-hover:bg-emerald-700 transition-colors shadow-2xs shrink-0 self-start sm:self-center">
+                <span>Chat on WhatsApp</span>
+                <ArrowUpRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+            </a>
 
-            {/* Action Buttons */}
-            {currentStep < 3 && (
-              <div className="pt-4 flex items-center justify-between border-t border-neutral-100">
-                <div className="text-[11px] text-neutral-400 font-mono">
-                  Straightforward & direct communication
+            {/* Option 2: Instagram */}
+            <a
+              id="contact-instagram-btn"
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-neutral-200 bg-neutral-50/70 hover:bg-fuchsia-50/40 hover:border-fuchsia-300 hover:shadow-xs transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-11 h-11 rounded-2xl bg-fuchsia-100/80 text-fuchsia-700 flex items-center justify-center shrink-0 border border-fuchsia-200/60 group-hover:scale-105 transition-transform">
+                  <Instagram className="w-5 h-5" />
                 </div>
-                {currentStep === 1 ? (
-                  <button
-                    type="submit"
-                    className="w-10 h-10 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white flex items-center justify-center shadow-sm transition-all group shrink-0"
-                    aria-label="Proceed to contact details"
-                  >
-                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium shadow-sm transition-all group shrink-0"
-                  >
-                    <span>Request time</span>
-                    <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                )}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="font-display font-bold text-sm text-neutral-900 leading-snug group-hover:text-fuchsia-950 transition-colors">
+                      Instagram
+                    </p>
+                    <span className="font-mono text-[10px] text-fuchsia-700 bg-fuchsia-100/70 px-2 py-0.5 rounded-full border border-fuchsia-200/50">
+                      Profile & DM
+                    </span>
+                  </div>
+                  <p className="text-xs font-mono font-semibold text-fuchsia-800 mt-0.5">
+                    @{instagramUsername}
+                  </p>
+                  <p className="text-[11px] text-neutral-500 font-mono mt-0.5">
+                    Click to open Instagram profile and message
+                  </p>
+                </div>
               </div>
-            )}
-          </form>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-900 text-white text-xs font-medium group-hover:bg-fuchsia-700 transition-colors shadow-2xs shrink-0 self-start sm:self-center">
+                <span>View @{instagramUsername}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+            </a>
+
+            {/* Option 3: Call Me */}
+            <a
+              id="contact-call-btn"
+              href={telUrl}
+              className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-neutral-200 bg-neutral-50/70 hover:bg-orange-50/40 hover:border-orange-300 hover:shadow-xs transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-11 h-11 rounded-2xl bg-orange-100/80 text-orange-700 flex items-center justify-center shrink-0 border border-orange-200/60 group-hover:scale-105 transition-transform">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="font-display font-bold text-sm text-neutral-900 leading-snug group-hover:text-orange-950 transition-colors">
+                      Call Me
+                    </p>
+                    <span className="font-mono text-[10px] text-orange-700 bg-orange-100/70 px-2 py-0.5 rounded-full border border-orange-200/50">
+                      Direct Line
+                    </span>
+                  </div>
+                  <p className="text-xs font-mono font-semibold text-orange-800 mt-0.5">
+                    {phoneNumber}
+                  </p>
+                  <p className="text-[11px] text-neutral-500 font-mono mt-0.5">
+                    Click to launch device phone dialer
+                  </p>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-900 text-white text-xs font-medium group-hover:bg-orange-700 transition-colors shadow-2xs shrink-0 self-start sm:self-center">
+                <span>Call Now</span>
+                <Phone className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
+              </span>
+            </a>
+          </div>
+
+          {/* Bottom Card Footer */}
+          <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-neutral-500">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Typically replies within 1–2 hours</span>
+            </div>
+            <div className="text-neutral-400">
+              Direct & confidential communication
+            </div>
+          </div>
         </div>
       </div>
     </section>

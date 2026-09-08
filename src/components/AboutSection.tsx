@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Laptop, Cpu, Headphones, Music } from 'lucide-react';
+import { Sparkles, Laptop, Cpu, Headphones, Music, ExternalLink } from 'lucide-react';
 import { ThemeSettings } from '../types';
 
 interface AboutSectionProps {
@@ -41,9 +41,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ settings }) => {
         <div className="lg:col-span-7 flex flex-col gap-5 justify-between">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1">
             {/* 2A: Music Player Widget (Veeran Sheher - 1:1 Layout) */}
-            <div
+            <a
               id="bento-music-card"
-              className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-soft flex flex-col justify-between group hover:border-neutral-300 transition-colors"
+              href={settings.spotifyUrl || 'https://open.spotify.com/track/2U699aQLnplBGFGxWBIiDD'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-soft flex flex-col justify-between group hover:border-neutral-300 transition-all cursor-pointer block text-inherit no-underline"
+              title="Open track on Spotify"
             >
               {/* Photo Frame 1:1 Square */}
               <div className="w-full aspect-square rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/70 shadow-xs mb-3 relative group/img">
@@ -59,8 +63,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ settings }) => {
                   <span>Now Playing</span>
                 </div>
                 {/* Bottom-right micro-pill */}
-                <div className="absolute bottom-2.5 right-2.5 bg-white/90 backdrop-blur-xs text-neutral-900 px-2.5 py-0.5 rounded-full text-[10px] font-mono border border-white/60 shadow-xs font-semibold">
-                  Spotify
+                <div className="absolute bottom-2.5 right-2.5 bg-white/90 group-hover:bg-white text-neutral-900 px-2.5 py-0.5 rounded-full text-[10px] font-mono border border-white/60 shadow-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span>Spotify</span>
+                  <ExternalLink className="w-2.5 h-2.5 text-neutral-500 group-hover:text-neutral-900 transition-colors" />
                 </div>
               </div>
 
@@ -121,7 +126,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ settings }) => {
                   Audio
                 </span>
               </div>
-            </div>
+            </a>
 
             {/* 2B: Studio Workstation Rig & Creative Environment (1:1 Layout) */}
             <div

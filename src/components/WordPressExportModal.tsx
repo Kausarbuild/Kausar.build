@@ -330,24 +330,51 @@ export const WordPressExportModal: React.FC<WordPressExportModalProps> = ({
 
             <div className="space-y-4 pt-4 border-t border-neutral-200">
               <h3 className="font-display font-bold text-base sm:text-lg text-neutral-900">
-                3. Image Replacement Ratio Guide
+                3. Direct Image Replacement (100% Code-Free)
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Every single image on the website can be replaced directly from your WordPress dashboard using the native Media Library:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs text-neutral-600">
+                <li>
+                  <strong>Option A (Live Customizer):</strong> Go to <strong>Appearance → Customize → 🖼️ All Website Images & Media</strong> to upload and preview images in real-time.
+                </li>
+                <li>
+                  <strong>Option B (Page Editor):</strong> Edit your Homepage page in WordPress to use the dedicated image upload meta boxes.
+                </li>
+              </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
                 <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                  <p className="font-mono font-bold text-neutral-900">Hero Lanyard Card</p>
+                  <p className="font-mono font-bold text-neutral-900">Hero Lanyard ID Badge</p>
+                  <p className="text-neutral-500">4:5 portrait ratio (e.g. 600 × 750 px)</p>
+                </div>
+                <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                  <p className="font-mono font-bold text-neutral-900">About Tall Portrait</p>
                   <p className="text-neutral-500">4:5 portrait ratio (e.g. 800 × 1000 px)</p>
                 </div>
                 <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                  <p className="font-mono font-bold text-neutral-900">About Me Tall Portrait</p>
-                  <p className="text-neutral-500">3:4 or 4:5 portrait ratio (e.g. 900 × 1200 px)</p>
+                  <p className="font-mono font-bold text-neutral-900">Spotify Music Album Cover</p>
+                  <p className="text-neutral-500">1:1 square ratio (e.g. 600 × 600 px)</p>
                 </div>
                 <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                  <p className="font-mono font-bold text-neutral-900">Project Cards</p>
-                  <p className="text-neutral-500">16:10 landscape ratio (e.g. 1280 × 800 px)</p>
+                  <p className="font-mono font-bold text-neutral-900">Workstation Rig Setup</p>
+                  <p className="text-neutral-500">1:1 square ratio (e.g. 800 × 800 px)</p>
                 </div>
                 <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                  <p className="font-mono font-bold text-neutral-900">Moments Photos</p>
-                  <p className="text-neutral-500">4:3 snapshot ratio (e.g. 800 × 600 px)</p>
+                  <p className="font-mono font-bold text-neutral-900">Profile Verification Avatar</p>
+                  <p className="text-neutral-500">1:1 square/circular ratio (e.g. 400 × 400 px)</p>
+                </div>
+                <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                  <p className="font-mono font-bold text-neutral-900">Consultation Portrait</p>
+                  <p className="text-neutral-500">4:5 portrait ratio (e.g. 800 × 1000 px)</p>
+                </div>
+                <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                  <p className="font-mono font-bold text-neutral-900">Project Cards Artwork</p>
+                  <p className="text-neutral-500">1:1 square ratio (e.g. 800 × 800 px)</p>
+                </div>
+                <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                  <p className="font-mono font-bold text-neutral-900">Wax Seal & Signature</p>
+                  <p className="text-neutral-500">Custom circular emblem or signature graphic</p>
                 </div>
               </div>
             </div>

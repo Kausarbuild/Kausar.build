@@ -5,11 +5,12 @@ import { ThemeSettings } from '../types';
 
 interface HeroSectionProps {
   settings: ThemeSettings;
+  onOpenCV?: () => void;
 }
 
 const GREETING_LANGUAGES = ['Hello', 'Bonjour', 'Hola', 'Ciao', 'Namaste'];
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ settings }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ settings, onOpenCV }) => {
   const [langIndex, setLangIndex] = useState(0);
 
   useEffect(() => {
@@ -112,8 +113,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ settings }) => {
             {/* Download CV */}
             <a
               id="btn-download-cv"
-              href={settings.cvUrl}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-neutral-300 text-neutral-800 text-xs sm:text-sm font-medium hover:border-neutral-400 hover:bg-neutral-50 transition-all shadow-xs"
+              href={settings.cvUrl || '/assets/docs/kausar-cv.pdf'}
+              download={settings.cvUrl?.endsWith('.pdf') ? 'Kausar-CV.pdf' : undefined}
+              onClick={(e) => {
+                if (!settings.cvUrl || settings.cvUrl.startsWith('#')) {
+                  e.preventDefault();
+                  if (onOpenCV) onOpenCV();
+                }
+              }}
+              target={settings.cvUrl && !settings.cvUrl.startsWith('#') ? '_blank' : undefined}
+              rel={settings.cvUrl && !settings.cvUrl.startsWith('#') ? 'noreferrer' : undefined}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-neutral-300 text-neutral-800 text-xs sm:text-sm font-medium hover:border-neutral-400 hover:bg-neutral-50 transition-all shadow-xs cursor-pointer"
             >
               <FileText className="w-4 h-4 text-neutral-500" />
               <span>Download CV</span>
